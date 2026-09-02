@@ -2,520 +2,1365 @@
 <html lang="fa" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>NOVA WEB STUDIO | طراحی سایت حرفه‌ای</title>
-
-    <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #05070B;
-            color: #E8EEF9;
-            line-height: 1.8;
-        }
-
-        /* HEADER */
-
-        header {
-            width: 100%;
-            height: 80px;
-            background: #05070B;
-            border-bottom: 1px solid #0B1220;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 0 6%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo {
-            font-size: 23px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            color: #E8EEF9;
-        }
-
-        nav {
-            display: flex;
-            gap: 28px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #E8EEF9;
-            font-size: 15px;
-            transition: 0.3s;
-        }
-
-        nav a:hover {
-            color: #1E3A8A;
-        }
-
-        .header-button {
-            text-decoration: none;
-            background: #1E3A8A;
-            color: white;
-            padding: 11px 20px;
-            border-radius: 10px;
-            transition: 0.3s;
-        }
-
-        .header-button:hover {
-            background: #274C9B;
-            transform: translateY(-2px);
-        }
-
-        /* HERO */
-
-        .hero {
-            min-height: calc(100vh - 80px);
-
-            display: flex;
-            align-items: center;
-            gap: 70px;
-
-            padding: 70px 6%;
-
-            background:
-                radial-gradient(
-                    circle at 80% 50%,
-                    rgba(30, 58, 138, 0.18),
-                    transparent 35%
-                );
-        }
-
-        .hero-text {
-            flex: 1;
-        }
-
-        .small-title {
-            color: #274C9B;
-            font-size: 15px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-        }
-
-        .hero h1 {
-            font-size: 58px;
-            line-height: 1.35;
-            margin-bottom: 25px;
-        }
-
-        .hero h1 span {
-            color: #1E3A8A;
-        }
-
-        .hero p {
-            color: #AEB8CA;
-            font-size: 18px;
-            max-width: 600px;
-            margin-bottom: 35px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NOVA WEB STUDIO | طراحی سایت حرفه‌ای</title>
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial, Tahoma, sans-serif;
+    background:#05070B;
+    color:#F4F7FC;
+    overflow-x:hidden;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button,
+input,
+textarea,
+select{
+    font-family:inherit;
+}
+
+
+/* =========================
+   VARIABLES
+========================= */
+
+:root{
+    --black:#05070B;
+    --navy:#0B1220;
+    --blue:#1E3A8A;
+    --blue2:#274C9B;
+    --white:#F4F7FC;
+    --muted:#8995AA;
+    --line:rgba(39,76,155,.25);
+}
+
+
+/* =========================
+   FLOATING BACKGROUND
+========================= */
+
+.background{
+    position:fixed;
+    inset:0;
+    z-index:-5;
+    overflow:hidden;
+    background:#05070B;
+}
+
+.background::before{
+    content:"";
+    position:absolute;
+    width:600px;
+    height:600px;
+    border-radius:50%;
+
+    background:radial-gradient(
+        circle,
+        rgba(30,58,138,.22),
+        transparent 65%
+    );
+
+    top:-180px;
+    right:-150px;
+
+    animation:floatOne 12s ease-in-out infinite alternate;
+}
+
+.background::after{
+    content:"";
+    position:absolute;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+
+    background:radial-gradient(
+        circle,
+        rgba(39,76,155,.16),
+        transparent 65%
+    );
+
+    bottom:-200px;
+    left:-150px;
 
-        .primary-button {
-            text-decoration: none;
-            background: #1E3A8A;
-            color: white;
-
-            padding: 14px 25px;
-            border-radius: 11px;
-
-            transition: 0.3s;
-        }
-
-        .primary-button:hover {
-            background: #274C9B;
-            transform: translateY(-3px);
-        }
-
-        .secondary-button {
-            text-decoration: none;
-            color: #E8EEF9;
-
-            border: 1px solid #1E3A8A;
-
-            padding: 13px 25px;
-            border-radius: 11px;
-
-            transition: 0.3s;
-        }
-
-        .secondary-button:hover {
-            background: #0B1220;
-        }
-
-        /* HERO IMAGE */
-
-        .hero-image {
-            flex: 1;
-        }
-
-        .hero-image img {
-            width: 100%;
-            display: block;
-
-            border-radius: 22px;
-
-            border: 1px solid #0B1220;
-
-            box-shadow:
-                0 30px 80px rgba(0, 0, 0, 0.5),
-                0 0 60px rgba(30, 58, 138, 0.15);
-        }
-
-        /* SERVICES */
-
-        .section {
-            padding: 100px 6%;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 55px;
-        }
-
-        .section-title small {
-            color: #274C9B;
-            font-weight: bold;
-        }
-
-        .section-title h2 {
-            font-size: 40px;
-            margin-top: 10px;
-        }
-
-        .section-title p {
-            color: #8E99AC;
-            margin-top: 10px;
-        }
-
-        .services {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        .service-card {
-            background: #0B1220;
-            border: 1px solid #111C31;
-
-            padding: 35px;
-
-            border-radius: 18px;
-
-            transition: 0.3s;
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            border-color: #1E3A8A;
-        }
-
-        .service-number {
-            color: #1E3A8A;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .service-card h3 {
-            font-size: 22px;
-            margin: 18px 0 12px;
-        }
-
-        .service-card p {
-            color: #9BA6B8;
-            font-size: 15px;
-        }
-
-        /* PORTFOLIO */
-
-        .portfolio {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        .project {
-            background: #0B1220;
-            border-radius: 18px;
-            overflow: hidden;
-            border: 1px solid #111C31;
-            transition: 0.3s;
-        }
-
-        .project:hover {
-            transform: translateY(-7px);
-            border-color: #1E3A8A;
-        }
-
-        .project img {
-            width: 100%;
-            height: 230px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .project-info {
-            padding: 22px;
-        }
-
-        .project-info h3 {
-            margin-bottom: 7px;
-        }
-
-        .project-info p {
-            color: #9BA6B8;
-            font-size: 14px;
-        }
-
-        /* WHY US */
-
-        .why-us {
-            background: #0B1220;
-
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        .why-card {
-            text-align: center;
-            padding: 35px;
-        }
-
-        .why-card .icon {
-            font-size: 35px;
-            margin-bottom: 15px;
-        }
-
-        .why-card h3 {
-            margin-bottom: 10px;
-        }
-
-        .why-card p {
-            color: #9BA6B8;
-            font-size: 14px;
-        }
-
-        /* PROCESS */
-
-        .process {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .process-card {
-            background: #0B1220;
-            border: 1px solid #111C31;
-            border-radius: 16px;
-            padding: 30px;
-        }
-
-        .process-card span {
-            color: #1E3A8A;
-            font-size: 30px;
-            font-weight: bold;
-        }
-
-        .process-card h3 {
-            margin: 12px 0;
-        }
-
-        .process-card p {
-            color: #9BA6B8;
-            font-size: 14px;
-        }
-
-        /* CONTACT */
-
-        .contact-box {
-            max-width: 850px;
-            margin: auto;
-
-            background: #0B1220;
-            border: 1px solid #111C31;
-
-            padding: 50px;
-            border-radius: 22px;
-        }
-
-        .contact-box form {
-            display: grid;
-            gap: 18px;
-        }
-
-        .contact-box input,
-        .contact-box textarea,
-        .contact-box select {
-            width: 100%;
-
-            background: #05070B;
-            color: #E8EEF9;
-
-            border: 1px solid #18243A;
-
-            padding: 15px;
-            border-radius: 10px;
-
-            font-size: 15px;
-            outline: none;
-        }
-
-        .contact-box input:focus,
-        .contact-box textarea:focus,
-        .contact-box select:focus {
-            border-color: #1E3A8A;
-        }
-
-        .contact-box textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .contact-box button {
-            border: none;
-
-            background: #1E3A8A;
-            color: white;
-
-            padding: 15px;
-
-            border-radius: 10px;
-
-            font-size: 16px;
-            cursor: pointer;
-
-            transition: 0.3s;
-        }
-
-        .contact-box button:hover {
-            background: #274C9B;
-        }
-
-        /* FOOTER */
-
-        footer {
-            background: #05070B;
-            border-top: 1px solid #0B1220;
-
-            text-align: center;
-
-            padding: 35px 20px;
-
-            color: #778298;
-        }
-
-        footer strong {
-            color: #E8EEF9;
-        }
-
-        /* RESPONSIVE */
-
-        @media (max-width: 900px) {
-
-            nav {
-                display: none;
-            }
-
-            .hero {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .hero-text {
-                width: 100%;
-            }
-
-            .hero p {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .services,
-            .portfolio,
-            .why-us {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .process {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 600px) {
-
-            .hero h1 {
-                font-size: 38px;
-            }
-
-            .section-title h2 {
-                font-size: 30px;
-            }
-
-            .services,
-            .portfolio,
-            .why-us,
-            .process {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-box {
-                padding: 25px;
-            }
-
-            .header-button {
-                display: none;
-            }
-        }
-
-    </style>
+    animation:floatTwo 15s ease-in-out infinite alternate;
+}
+
+@keyframes floatOne{
+    from{
+        transform:translate(0,0) scale(1);
+    }
+
+    to{
+        transform:translate(-100px,100px) scale(1.2);
+    }
+}
+
+@keyframes floatTwo{
+    from{
+        transform:translate(0,0);
+    }
+
+    to{
+        transform:translate(100px,-80px);
+    }
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+
+    height:82px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 6%;
+
+    background:rgba(5,7,11,.78);
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid rgba(39,76,155,.15);
+}
+
+.logo{
+    font-size:21px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.logo span{
+    color:#274C9B;
+}
+
+nav{
+    display:flex;
+    gap:30px;
+}
+
+nav a{
+    color:#AEB7C8;
+    font-size:14px;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#F4F7FC;
+}
+
+.nav-button{
+    padding:11px 19px;
+    border-radius:10px;
+
+    background:#1E3A8A;
+
+    font-size:14px;
+
+    transition:.3s;
+}
+
+.nav-button:hover{
+    background:#274C9B;
+    transform:translateY(-2px);
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:calc(100vh - 82px);
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:center;
+
+    gap:70px;
+
+    padding:80px 6%;
+}
+
+.hero-content{
+    max-width:650px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    padding:8px 14px;
+
+    border:1px solid var(--line);
+    border-radius:50px;
+
+    background:rgba(11,18,32,.6);
+
+    color:#AAB6CB;
+
+    font-size:13px;
+
+    margin-bottom:25px;
+}
+
+.badge i{
+    width:7px;
+    height:7px;
+
+    background:#274C9B;
+
+    border-radius:50%;
+
+    box-shadow:0 0 15px #274C9B;
+}
+
+.hero h1{
+    font-size:clamp(42px,6vw,76px);
+    line-height:1.2;
+
+    letter-spacing:-2px;
+
+    margin-bottom:25px;
+}
+
+.hero h1 span{
+    color:#274C9B;
+}
+
+.hero-text{
+    color:#919CAF;
+    font-size:17px;
+    line-height:2;
+
+    max-width:600px;
+
+    margin-bottom:35px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+.btn-primary{
+    background:#1E3A8A;
+
+    padding:15px 25px;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+    transition:.3s;
+}
+
+.btn-primary:hover{
+    background:#274C9B;
+    transform:translateY(-3px);
+    box-shadow:0 15px 40px rgba(30,58,138,.25);
+}
+
+.btn-secondary{
+    border:1px solid #1E3A8A;
+
+    padding:14px 25px;
+
+    border-radius:12px;
+
+    color:#D8DFEB;
+
+    transition:.3s;
+}
+
+.btn-secondary:hover{
+    background:#0B1220;
+}
+
+
+/* =========================
+   HERO VISUAL
+========================= */
+
+.hero-visual{
+    position:relative;
+    min-height:540px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.hero-card{
+    position:relative;
+    width:100%;
+    max-width:650px;
+
+    padding:12px;
+
+    border-radius:25px;
+
+    background:linear-gradient(
+        145deg,
+        rgba(39,76,155,.35),
+        rgba(11,18,32,.7)
+    );
+
+    border:1px solid rgba(39,76,155,.35);
+
+    box-shadow:
+        0 40px 100px rgba(0,0,0,.55),
+        0 0 80px rgba(30,58,138,.15);
+
+    transform:rotate(2deg);
+
+    animation:heroFloat 6s ease-in-out infinite;
+}
+
+.hero-card img{
+    display:block;
+
+    width:100%;
+
+    border-radius:17px;
+}
+
+@keyframes heroFloat{
+
+    0%,100%{
+        transform:rotate(2deg) translateY(0);
+    }
+
+    50%{
+        transform:rotate(1deg) translateY(-15px);
+    }
+
+}
+
+
+/* floating mini cards */
+
+.mini-card{
+    position:absolute;
+
+    padding:15px 18px;
+
+    background:rgba(11,18,32,.9);
+
+    border:1px solid rgba(39,76,155,.4);
+
+    border-radius:14px;
+
+    backdrop-filter:blur(15px);
+
+    box-shadow:0 20px 50px rgba(0,0,0,.4);
+
+    font-size:13px;
+
+    color:#CBD3E1;
+}
+
+.mini-one{
+    top:70px;
+    left:-25px;
+
+    animation:miniOne 5s ease-in-out infinite;
+}
+
+.mini-two{
+    bottom:70px;
+    right:-25px;
+
+    animation:miniTwo 6s ease-in-out infinite;
+}
+
+@keyframes miniOne{
+    50%{
+        transform:translateY(-12px);
+    }
+}
+
+@keyframes miniTwo{
+    50%{
+        transform:translateY(12px);
+    }
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    padding:20px 6% 80px;
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+
+    gap:20px;
+}
+
+.stat{
+    padding:25px;
+
+    background:rgba(11,18,32,.6);
+
+    border:1px solid rgba(39,76,155,.18);
+
+    border-radius:16px;
+
+    text-align:center;
+}
+
+.stat strong{
+    display:block;
+
+    font-size:32px;
+
+    color:#F4F7FC;
+
+    margin-bottom:5px;
+}
+
+.stat span{
+    color:#778399;
+
+    font-size:13px;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+    padding:120px 6%;
+}
+
+.section-heading{
+    max-width:750px;
+
+    margin-bottom:60px;
+}
+
+.section-heading small{
+    color:#274C9B;
+
+    font-weight:bold;
+
+    font-size:13px;
+
+    letter-spacing:2px;
+}
+
+.section-heading h2{
+    font-size:clamp(32px,4vw,52px);
+
+    margin:12px 0 15px;
+
+    line-height:1.35;
+}
+
+.section-heading p{
+    color:#8995AA;
+
+    line-height:2;
+}
+
+
+/* =========================
+   SERVICES
+========================= */
+
+.services{
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:20px;
+}
+
+.service{
+    position:relative;
+
+    padding:35px;
+
+    min-height:260px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(11,18,32,.95),
+            rgba(5,7,11,.9)
+        );
+
+    border:1px solid rgba(39,76,155,.18);
+
+    border-radius:20px;
+
+    transition:.4s;
+
+    overflow:hidden;
+}
+
+.service::after{
+    content:"";
+
+    position:absolute;
+
+    width:150px;
+    height:150px;
+
+    background:radial-gradient(
+        circle,
+        rgba(30,58,138,.18),
+        transparent 70%
+    );
+
+    top:-70px;
+    left:-70px;
+}
+
+.service:hover{
+    transform:translateY(-8px);
+
+    border-color:#1E3A8A;
+
+    box-shadow:0 25px 70px rgba(0,0,0,.3);
+}
+
+.service-number{
+    color:#274C9B;
+
+    font-size:13px;
+
+    font-weight:bold;
+}
+
+.service h3{
+    font-size:23px;
+
+    margin:22px 0 12px;
+}
+
+.service p{
+    color:#8995AA;
+
+    font-size:14px;
+
+    line-height:2;
+}
+
+.service ul{
+    margin-top:20px;
+
+    list-style:none;
+}
+
+.service li{
+    color:#A9B3C3;
+
+    font-size:13px;
+
+    margin:8px 0;
+}
+
+.service li::before{
+    content:"✓";
+
+    color:#274C9B;
+
+    margin-left:8px;
+}
+
+
+/* =========================
+   PRICING
+========================= */
+
+.pricing-section{
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(30,58,138,.12),
+            transparent 45%
+        );
+}
+
+.pricing{
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:22px;
+
+    align-items:stretch;
+}
+
+.price-card{
+    position:relative;
+
+    padding:35px;
+
+    border-radius:22px;
+
+    background:#0B1220;
+
+    border:1px solid rgba(39,76,155,.2);
+
+    transition:.4s;
+}
+
+.price-card:hover{
+    transform:translateY(-8px);
+
+    border-color:#1E3A8A;
+}
+
+.price-card.featured{
+    border-color:#1E3A8A;
+
+    box-shadow:
+        0 25px 80px rgba(30,58,138,.16);
+}
+
+.popular{
+    position:absolute;
+
+    top:18px;
+    left:18px;
+
+    background:#1E3A8A;
+
+    padding:6px 11px;
+
+    border-radius:20px;
+
+    font-size:11px;
+}
+
+.price-card h3{
+    font-size:22px;
+
+    margin-bottom:10px;
+}
+
+.price-description{
+    color:#7F8BA0;
+
+    font-size:13px;
+
+    min-height:50px;
+}
+
+.price{
+    font-size:36px;
+
+    font-weight:bold;
+
+    margin:25px 0;
+
+    color:#F4F7FC;
+}
+
+.price small{
+    font-size:13px;
+
+    color:#7F8BA0;
+
+    font-weight:normal;
+}
+
+.price-list{
+    list-style:none;
+
+    border-top:1px solid rgba(39,76,155,.15);
+
+    padding-top:20px;
+}
+
+.price-list li{
+    color:#A9B3C3;
+
+    font-size:14px;
+
+    margin:12px 0;
+}
+
+.price-list li::before{
+    content:"✓";
+
+    color:#274C9B;
+
+    margin-left:9px;
+}
+
+.price-btn{
+    display:block;
+
+    text-align:center;
+
+    margin-top:30px;
+
+    padding:13px;
+
+    border-radius:11px;
+
+    background:#1E3A8A;
+
+    transition:.3s;
+}
+
+.price-btn:hover{
+    background:#274C9B;
+}
+
+
+/* =========================
+   PORTFOLIO
+========================= */
+
+.portfolio{
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:24px;
+}
+
+.project{
+    background:#0B1220;
+
+    border:1px solid rgba(39,76,155,.18);
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    transition:.4s;
+}
+
+.project:hover{
+    transform:translateY(-8px);
+
+    border-color:#1E3A8A;
+}
+
+.project-image{
+    height:420px;
+
+    background:#05070B;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    padding:15px;
+}
+
+.project-image img{
+    max-width:100%;
+    max-height:100%;
+
+    width:auto;
+    height:auto;
+
+    object-fit:contain;
+
+    border-radius:12px;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.5);
+
+    transition:.5s;
+}
+
+.project:hover .project-image img{
+    transform:scale(1.03);
+}
+
+.project-info{
+    padding:25px;
+}
+
+.project-top{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.project-info h3{
+    font-size:20px;
+}
+
+.project-type{
+    color:#274C9B;
+
+    font-size:11px;
+}
+
+.project-info p{
+    color:#8995AA;
+
+    font-size:13px;
+
+    line-height:2;
+
+    margin:12px 0 20px;
+}
+
+.project-link{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:#DCE3EF;
+
+    font-size:13px;
+
+    transition:.3s;
+}
+
+.project-link:hover{
+    color:#274C9B;
+}
+
+
+/* =========================
+   CASE STUDY
+========================= */
+
+.case-study{
+    margin-top:35px;
+
+    padding:35px;
+
+    background:#0B1220;
+
+    border:1px solid rgba(39,76,155,.16);
+
+    border-radius:22px;
+}
+
+.case-study h3{
+    margin-bottom:10px;
+}
+
+.case-study p{
+    color:#8995AA;
+
+    line-height:2;
+
+    font-size:14px;
+}
+
+
+/* =========================
+   WHY
+========================= */
+
+.why-grid{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:20px;
+}
+
+.why-card{
+    padding:30px;
+
+    background:#0B1220;
+
+    border:1px solid rgba(39,76,155,.16);
+
+    border-radius:18px;
+
+    transition:.3s;
+}
+
+.why-card:hover{
+    border-color:#1E3A8A;
+}
+
+.why-icon{
+    width:45px;
+    height:45px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:#1E3A8A;
+
+    margin-bottom:20px;
+
+    font-size:18px;
+}
+
+.why-card h3{
+    margin-bottom:10px;
+}
+
+.why-card p{
+    color:#8995AA;
+
+    font-size:13px;
+
+    line-height:2;
+}
+
+
+/* =========================
+   PROCESS
+========================= */
+
+.process{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:20px;
+}
+
+.step{
+    position:relative;
+
+    padding:30px;
+
+    border-top:1px solid #1E3A8A;
+
+    background:linear-gradient(
+        180deg,
+        rgba(11,18,32,.8),
+        rgba(5,7,11,.5)
+    );
+
+    border-radius:0 0 18px 18px;
+}
+
+.step-number{
+    color:#274C9B;
+
+    font-size:35px;
+
+    font-weight:bold;
+}
+
+.step h3{
+    margin:15px 0 10px;
+}
+
+.step p{
+    color:#8995AA;
+
+    font-size:13px;
+
+    line-height:2;
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact-wrapper{
+    display:grid;
+
+    grid-template-columns:.8fr 1.2fr;
+
+    gap:30px;
+
+    align-items:stretch;
+}
+
+.contact-info{
+    padding:40px;
+
+    background:#0B1220;
+
+    border:1px solid rgba(39,76,155,.16);
+
+    border-radius:22px;
+}
+
+.contact-info h2{
+    font-size:35px;
+
+    margin-bottom:15px;
+}
+
+.contact-info p{
+    color:#8995AA;
+
+    line-height:2;
+
+    font-size:14px;
+
+    margin-bottom:30px;
+}
+
+.contact-item{
+    padding:17px 0;
+
+    border-bottom:1px solid rgba(39,76,155,.14);
+
+    color:#AEB7C8;
+
+    font-size:14px;
+}
+
+.contact-form{
+    padding:40px;
+
+    background:#0B1220;
+
+    border:1px solid rgba(39,76,155,.16);
+
+    border-radius:22px;
+}
+
+.form-row{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+}
+
+.form-group{
+    margin-bottom:16px;
+}
+
+.form-group label{
+    display:block;
+
+    font-size:12px;
+
+    color:#AAB4C5;
+
+    margin-bottom:8px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    width:100%;
+
+    padding:14px;
+
+    background:#05070B;
+
+    color:#F4F7FC;
+
+    border:1px solid #17243A;
+
+    border-radius:10px;
+
+    outline:none;
+
+    font-size:13px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+    border-color:#1E3A8A;
+}
+
+.form-group textarea{
+    min-height:130px;
+
+    resize:vertical;
+}
+
+.submit{
+    width:100%;
+
+    border:0;
+
+    padding:15px;
+
+    border-radius:11px;
+
+    background:#1E3A8A;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    transition:.3s;
+}
+
+.submit:hover{
+    background:#274C9B;
+}
+
+
+/* =========================
+   CTA
+========================= */
+
+.final-cta{
+    margin:40px 6% 100px;
+
+    padding:70px 40px;
+
+    text-align:center;
+
+    border-radius:28px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(39,76,155,.3),
+            transparent 55%
+        ),
+        #0B1220;
+
+    border:1px solid rgba(39,76,155,.25);
+}
+
+.final-cta h2{
+    font-size:clamp(32px,5vw,55px);
+
+    margin-bottom:15px;
+}
+
+.final-cta p{
+    color:#8995AA;
+
+    margin-bottom:30px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    border-top:1px solid rgba(39,76,155,.15);
+
+    padding:35px 6%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    color:#68758A;
+
+    font-size:12px;
+}
+
+footer strong{
+    color:#AAB4C5;
+}
+
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+.reveal{
+    opacity:0;
+
+    transform:translateY(35px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.reveal.show{
+    opacity:1;
+
+    transform:translateY(0);
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1050px){
+
+    nav{
+        display:none;
+    }
+
+    .hero{
+        grid-template-columns:1fr;
+
+        text-align:center;
+    }
+
+    .hero-content{
+        margin:auto;
+    }
+
+    .hero-text{
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .hero-buttons{
+        justify-content:center;
+    }
+
+    .hero-visual{
+        min-height:auto;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .services,
+    .pricing,
+    .portfolio{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .why-grid,
+    .process{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .contact-wrapper{
+        grid-template-columns:1fr;
+    }
+}
+
+
+@media(max-width:650px){
+
+    header{
+        height:70px;
+    }
+
+    .nav-button{
+        display:none;
+    }
+
+    .hero{
+        padding-top:55px;
+    }
+
+    .hero h1{
+        letter-spacing:-1px;
+    }
+
+    .hero-visual{
+        padding:10px;
+    }
+
+    .mini-card{
+        display:none;
+    }
+
+    .stats,
+    .services,
+    .pricing,
+    .portfolio,
+    .why-grid,
+    .process{
+        grid-template-columns:1fr;
+    }
+
+    .section{
+        padding:80px 5%;
+    }
+
+    .project-image{
+        height:500px;
+    }
+
+    .form-row{
+        grid-template-columns:1fr;
+    }
+
+    .contact-form,
+    .contact-info{
+        padding:25px;
+    }
+
+    footer{
+        flex-direction:column;
+        gap:12px;
+
+        text-align:center;
+    }
+}
+
+</style>
 </head>
 
 
 <body>
 
 
+<!-- BACKGROUND -->
+
+<div class="background"></div>
+
+
 <!-- HEADER -->
 
 <header>
 
-    <div class="logo">
-        NOVA WEB STUDIO
-    </div>
+    <a href="#home" class="logo">
+        NOVA<span>.</span>
+    </a>
 
     <nav>
 
-        <a href="#home">خانه</a>
-
         <a href="#services">خدمات</a>
+
+        <a href="#pricing">قیمت‌ها</a>
 
         <a href="#portfolio">نمونه‌کارها</a>
 
@@ -525,7 +1370,7 @@
 
     </nav>
 
-    <a href="#contact" class="header-button">
+    <a href="#contact" class="nav-button">
         درخواست پروژه
     </a>
 
@@ -534,33 +1379,34 @@
 
 <!-- HERO -->
 
-<main id="home">
+<section class="hero" id="home">
 
-<section class="hero">
+    <div class="hero-content reveal">
 
-    <div class="hero-text">
-
-        <div class="small-title">
-            NOVA WEB STUDIO
+        <div class="badge">
+            <i></i>
+            آماده‌ی شروع پروژه‌های جدید
         </div>
 
         <h1>
-            سایت‌هایی که
-            <span>حرفه‌ای دیده می‌شوند.</span>
+            برندت را
+            <span>روی وب</span>
+            متفاوت نشان بده.
         </h1>
 
-        <p>
-            طراحی سایت مدرن، اختصاصی و حرفه‌ای برای برندها و کسب‌وکارهایی که می‌خواهند متفاوت دیده شوند و حضور قدرتمندی در فضای آنلاین داشته باشند.
+        <p class="hero-text">
+            طراحی و توسعه‌ی سایت‌های مدرن، حرفه‌ای و اختصاصی
+            برای کسب‌وکارهایی که نمی‌خواهند شبیه بقیه باشند.
         </p>
 
         <div class="hero-buttons">
 
-            <a href="#contact" class="primary-button">
-                شروع یک پروژه
+            <a href="#contact" class="btn-primary">
+                شروع پروژه ←
             </a>
 
-            <a href="#portfolio" class="secondary-button">
-                مشاهده نمونه‌کارها
+            <a href="#portfolio" class="btn-secondary">
+                دیدن نمونه‌کارها
             </a>
 
         </div>
@@ -568,10 +1414,52 @@
     </div>
 
 
-    <div class="hero-image">
+    <div class="hero-visual reveal">
 
-        <img src="70.jpeg" alt="طراحی سایت NOVA">
+        <div class="hero-card">
 
+            <img
+                src="70.jpeg"
+                alt="NOVA Web Studio"
+            >
+
+        </div>
+
+        <div class="mini-card mini-one">
+            ✦ طراحی اختصاصی
+        </div>
+
+        <div class="mini-card mini-two">
+            ◈ Responsive Design
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- STATS -->
+
+<section class="stats reveal">
+
+    <div class="stat">
+        <strong>100%</strong>
+        <span>طراحی اختصاصی</span>
+    </div>
+
+    <div class="stat">
+        <strong>24/7</strong>
+        <span>دسترسی آنلاین</span>
+    </div>
+
+    <div class="stat">
+        <strong>Mobile</strong>
+        <span>طراحی واکنش‌گرا</span>
+    </div>
+
+    <div class="stat">
+        <strong>∞</strong>
+        <span>ایده‌های متفاوت</span>
     </div>
 
 </section>
@@ -581,16 +1469,18 @@
 
 <section class="section" id="services">
 
-    <div class="section-title">
+    <div class="section-heading reveal">
 
-        <small>خدمات ما</small>
+        <small>WHAT I DO</small>
 
         <h2>
-            چیزی بیشتر از یک سایت
+            فقط سایت نمی‌سازم؛
+            یک حضور آنلاین می‌سازم.
         </h2>
 
         <p>
-            طراحی و ساخت تجربه‌ای حرفه‌ای برای برند شما
+            از طراحی ظاهر تا ساخت امکانات سایت،
+            پروژه را متناسب با نیاز کسب‌وکار طراحی و اجرا می‌کنم.
         </p>
 
     </div>
@@ -598,55 +1488,263 @@
 
     <div class="services">
 
-        <div class="service-card">
 
-            <span class="service-number">
-                01
-            </span>
+        <div class="service reveal">
 
-            <h3>
-                طراحی سایت اختصاصی
-            </h3>
+            <span class="service-number">01</span>
+
+            <h3>طراحی سایت اختصاصی</h3>
 
             <p>
-                طراحی ظاهری مدرن و اختصاصی متناسب با هویت برند و نیازهای کسب‌وکار شما.
+                طراحی ظاهر کاملاً اختصاصی بر اساس برند،
+                حوزه فعالیت و هدف سایت.
             </p>
+
+            <ul>
+                <li>طراحی مدرن</li>
+                <li>Responsive</li>
+                <li>رابط کاربری حرفه‌ای</li>
+            </ul>
 
         </div>
 
 
-        <div class="service-card">
+        <div class="service reveal">
 
-            <span class="service-number">
-                02
-            </span>
+            <span class="service-number">02</span>
 
-            <h3>
-                فروشگاه اینترنتی
-            </h3>
+            <h3>فروشگاه اینترنتی</h3>
 
             <p>
-                ساخت فروشگاه اینترنتی حرفه‌ای با صفحات محصول، دسته‌بندی، سبد خرید و امکانات موردنیاز.
+                ساخت فروشگاه برای نمایش و فروش محصولات
+                با تجربه کاربری ساده و حرفه‌ای.
             </p>
+
+            <ul>
+                <li>صفحه محصول</li>
+                <li>دسته‌بندی محصولات</li>
+                <li>سبد خرید و سفارش</li>
+            </ul>
 
         </div>
 
 
-        <div class="service-card">
+        <div class="service reveal">
 
-            <span class="service-number">
-                03
-            </span>
+            <span class="service-number">03</span>
 
-            <h3>
-                طراحی سایت شرکتی
-            </h3>
+            <h3>سایت شرکتی و خدماتی</h3>
 
             <p>
-                سایت‌های حرفه‌ای برای معرفی شرکت، خدمات، نمونه‌کارها و ایجاد اعتبار بیشتر.
+                معرفی حرفه‌ای شرکت، خدمات، تیم و نمونه‌کارها
+                برای افزایش اعتماد مخاطب.
             </p>
 
+            <ul>
+                <li>صفحات خدمات</li>
+                <li>معرفی مجموعه</li>
+                <li>فرم تماس</li>
+            </ul>
+
         </div>
+
+
+        <div class="service reveal">
+
+            <span class="service-number">04</span>
+
+            <h3>Landing Page</h3>
+
+            <p>
+                صفحات فرود جذاب برای معرفی محصول،
+                کمپین، خدمات یا برند.
+            </p>
+
+            <ul>
+                <li>طراحی تبلیغاتی</li>
+                <li>CTA حرفه‌ای</li>
+                <li>تمرکز روی تبدیل</li>
+            </ul>
+
+        </div>
+
+
+        <div class="service reveal">
+
+            <span class="service-number">05</span>
+
+            <h3>بهینه‌سازی و SEO پایه</h3>
+
+            <p>
+                آماده‌سازی ساختار سایت برای عملکرد بهتر
+                و قابلیت ایندکس شدن توسط موتورهای جستجو.
+            </p>
+
+            <ul>
+                <li>ساختار مناسب صفحات</li>
+                <li>Meta اطلاعات</li>
+                <li>ساختار محتوایی</li>
+            </ul>
+
+        </div>
+
+
+        <div class="service reveal">
+
+            <span class="service-number">06</span>
+
+            <h3>اتصال امکانات</h3>
+
+            <p>
+                اضافه کردن امکانات موردنیاز پروژه
+                و اتصال سرویس‌های لازم در مراحل توسعه.
+            </p>
+
+            <ul>
+                <li>فرم‌ها</li>
+                <li>پایگاه داده</li>
+                <li>پنل مدیریت</li>
+            </ul>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- PRICING -->
+
+<section class="section pricing-section" id="pricing">
+
+    <div class="section-heading reveal">
+
+        <small>PRICING</small>
+
+        <h2>
+            پکیج مناسب پروژه‌ات را انتخاب کن.
+        </h2>
+
+        <p>
+            قیمت‌ها از این مبلغ شروع می‌شوند و با توجه به امکانات
+            و جزئیات پروژه تعیین می‌شوند.
+        </p>
+
+    </div>
+
+
+    <div class="pricing">
+
+
+        <div class="price-card reveal">
+
+            <h3>Starter</h3>
+
+            <p class="price-description">
+                مناسب سایت‌های ساده و معرفی کسب‌وکار
+            </p>
+
+            <div class="price">
+                از ۸ میلیون
+                <small>تومان</small>
+            </div>
+
+            <ul class="price-list">
+
+                <li>طراحی اختصاصی</li>
+
+                <li>تا ۵ صفحه</li>
+
+                <li>Responsive</li>
+
+                <li>فرم تماس</li>
+
+                <li>تحویل فایل‌های پروژه</li>
+
+            </ul>
+
+            <a href="#contact" class="price-btn">
+                درخواست این پکیج
+            </a>
+
+        </div>
+
+
+        <div class="price-card featured reveal">
+
+            <div class="popular">
+                محبوب‌ترین
+            </div>
+
+            <h3>Professional</h3>
+
+            <p class="price-description">
+                مناسب کسب‌وکارهایی که سایت حرفه‌ای می‌خواهند
+            </p>
+
+            <div class="price">
+                از ۱۵ میلیون
+                <small>تومان</small>
+            </div>
+
+            <ul class="price-list">
+
+                <li>طراحی اختصاصی پیشرفته</li>
+
+                <li>صفحات متعدد</li>
+
+                <li>نمونه‌کار و خدمات</li>
+
+                <li>فرم درخواست پروژه</li>
+
+                <li>انیمیشن و تعاملات</li>
+
+                <li>SEO پایه</li>
+
+            </ul>
+
+            <a href="#contact" class="price-btn">
+                درخواست این پکیج
+            </a>
+
+        </div>
+
+
+        <div class="price-card reveal">
+
+            <h3>Custom</h3>
+
+            <p class="price-description">
+                برای پروژه‌های فروشگاهی و اختصاصی
+            </p>
+
+            <div class="price">
+                توافقی
+            </div>
+
+            <ul class="price-list">
+
+                <li>فروشگاه اینترنتی</li>
+
+                <li>پنل مدیریت</li>
+
+                <li>پایگاه داده</li>
+
+                <li>سیستم سفارش</li>
+
+                <li>امکانات اختصاصی</li>
+
+                <li>پشتیبانی پروژه</li>
+
+            </ul>
+
+            <a href="#contact" class="price-btn">
+                مشاوره پروژه
+            </a>
+
+        </div>
+
 
     </div>
 
@@ -657,16 +1755,18 @@
 
 <section class="section" id="portfolio">
 
-    <div class="section-title">
+    <div class="section-heading reveal">
 
-        <small>نمونه‌کارها</small>
+        <small>SELECTED WORK</small>
 
         <h2>
-            پروژه‌های منتخب
+            پروژه‌هایی که می‌توانند
+            حرف بزنند.
         </h2>
 
         <p>
-            چند نمونه از طراحی‌هایی که در NOVA ساخته شده‌اند
+            چند نمونه از سایت‌هایی که برای حوزه‌های مختلف طراحی شده‌اند.
+            روی هر پروژه می‌توانی نسخه‌ی واقعی سایت را ببینی.
         </p>
 
     </div>
@@ -675,157 +1775,341 @@
     <div class="portfolio">
 
 
-        <div class="project">
+        <!-- PROJECT 1 -->
 
-            <img src="71.jpeg" alt="نمونه سایت کتاب">
+        <article class="project reveal">
 
-            <div class="project-info">
+            <div class="project-image">
 
-                <h3>
-                    کتابخانه‌ی نیمه‌شب
-                </h3>
-
-                <p>
-                    طراحی سایت فروشگاهی برای کتاب‌فروشی
-                </p>
+                <img
+                    src="71.jpeg"
+                    alt="کتابخانه نیمه شب"
+                >
 
             </div>
 
-        </div>
-
-
-        <div class="project">
-
-            <img src="72.jpeg" alt="نمونه سایت فشن">
-
             <div class="project-info">
 
-                <h3>
-                    Fashion Store
-                </h3>
+                <div class="project-top">
+
+                    <h3>
+                        کتابخانه‌ی نیمه‌شب
+                    </h3>
+
+                    <span class="project-type">
+                        فروشگاهی
+                    </span>
+
+                </div>
 
                 <p>
-                    طراحی فروشگاه اینترنتی مدرن
+                    فروشگاه آنلاین کتاب با دسته‌بندی محصولات،
+                    جستجو، معرفی کتاب‌ها و ساختار مناسب برای خرید.
                 </p>
+
+                <a
+                    href="https://n4866059-sketch.github.io/ketabkhane-nime-shab/"
+                    target="_blank"
+                    class="project-link"
+                >
+                    مشاهده سایت ↗
+                </a>
 
             </div>
 
-        </div>
+        </article>
 
 
-        <div class="project">
+        <!-- PROJECT 2 -->
 
-            <img src="73.jpeg" alt="نمونه سایت پوشاک">
+        <article class="project reveal">
 
-            <div class="project-info">
+            <div class="project-image">
 
-                <h3>
-                    Clothing Store
-                </h3>
-
-                <p>
-                    طراحی سایت فروش پوشاک
-                </p>
+                <img
+                    src="72.jpeg"
+                    alt="Fashion Store"
+                >
 
             </div>
 
-        </div>
-
-
-        <div class="project">
-
-            <img src="74.jpeg" alt="نمونه سایت دکوراسیون">
-
             <div class="project-info">
 
-                <h3>
-                    Home Decor
-                </h3>
+                <div class="project-top">
+
+                    <h3>
+                        Fashion Store
+                    </h3>
+
+                    <span class="project-type">
+                        Fashion
+                    </span>
+
+                </div>
 
                 <p>
-                    طراحی سایت برای دکوراسیون داخلی
+                    طراحی فروشگاه مدرن برای نمایش محصولات،
+                    دسته‌بندی و ایجاد تجربه خرید جذاب.
                 </p>
+
+                <a
+                    href="https://n4866059-sketch.github.io/nafas-fashion-store/"
+                    target="_blank"
+                    class="project-link"
+                >
+                    مشاهده سایت ↗
+                </a>
 
             </div>
 
-        </div>
+        </article>
 
 
-        <div class="project">
+        <!-- PROJECT 3 -->
 
-            <img src="75.jpeg" alt="نمونه سایت جواهرات">
+        <article class="project reveal">
 
-            <div class="project-info">
+            <div class="project-image">
 
-                <h3>
-                    Jewelry Store
-                </h3>
-
-                <p>
-                    طراحی فروشگاه آنلاین جواهرات
-                </p>
+                <img
+                    src="73.jpeg"
+                    alt="Clothing Store"
+                >
 
             </div>
 
-        </div>
+            <div class="project-info">
 
+                <div class="project-top">
+
+                    <h3>
+                        Clothing Store
+                    </h3>
+
+                    <span class="project-type">
+                        E-Commerce
+                    </span>
+
+                </div>
+
+                <p>
+                    سایت فروشگاهی برای برند پوشاک با تمرکز روی
+                    نمایش محصولات و تجربه کاربری ساده.
+                </p>
+
+                <a
+                    href="https://n4866059-sketch.github.io/nafas-fashion-store/"
+                    target="_blank"
+                    class="project-link"
+                >
+                    مشاهده سایت ↗
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <!-- PROJECT 4 -->
+
+        <article class="project reveal">
+
+            <div class="project-image">
+
+                <img
+                    src="74.jpeg"
+                    alt="Home Decor"
+                >
+
+            </div>
+
+            <div class="project-info">
+
+                <div class="project-top">
+
+                    <h3>
+                        Home Decor
+                    </h3>
+
+                    <span class="project-type">
+                        دکوراسیون
+                    </span>
+
+                </div>
+
+                <p>
+                    طراحی مینیمال و لوکس برای معرفی محصولات
+                    و خدمات حوزه دکوراسیون داخلی.
+                </p>
+
+                <a
+                    href="#contact"
+                    class="project-link"
+                >
+                    درخواست طراحی مشابه ↗
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <!-- PROJECT 5 -->
+
+        <article class="project reveal">
+
+            <div class="project-image">
+
+                <img
+                    src="75.jpeg"
+                    alt="Jewelry Store"
+                >
+
+            </div>
+
+            <div class="project-info">
+
+                <div class="project-top">
+
+                    <h3>
+                        Jewelry Store
+                    </h3>
+
+                    <span class="project-type">
+                        Luxury
+                    </span>
+
+                </div>
+
+                <p>
+                    طراحی فروشگاه لوکس برای برندهای جواهرات
+                    با تمرکز روی تصویر محصول و هویت بصری.
+                </p>
+
+                <a
+                    href="#contact"
+                    class="project-link"
+                >
+                    درخواست طراحی مشابه ↗
+                </a>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+
+    <!-- CASE STUDY -->
+
+    <div class="case-study reveal">
+
+        <h3>
+            چرا نمونه‌کارها فقط عکس نیستند؟
+        </h3>
+
+        <p>
+            هر پروژه باید هدف مشخصی داشته باشد؛
+            از معرفی برند و افزایش اعتماد گرفته تا نمایش محصولات
+            و ایجاد مسیر ساده برای تماس یا خرید.
+            به همین دلیل در NOVA علاوه بر ظاهر،
+            ساختار و تجربه کاربر هم در طراحی در نظر گرفته می‌شود.
+        </p>
 
     </div>
 
 </section>
 
 
-<!-- WHY US -->
+<!-- WHY NOVA -->
 
-<section class="section why-us">
+<section class="section">
 
-    <div class="why-card">
+    <div class="section-heading reveal">
 
-        <div class="icon">
-            ✦
-        </div>
+        <small>WHY NOVA</small>
 
-        <h3>
-            طراحی اختصاصی
-        </h3>
-
-        <p>
-            هر پروژه بر اساس نیاز و هویت همان برند طراحی می‌شود.
-        </p>
+        <h2>
+            چرا یک سایت معمولی کافی نیست؟
+        </h2>
 
     </div>
 
 
-    <div class="why-card">
+    <div class="why-grid">
 
-        <div class="icon">
-            ◈
+
+        <div class="why-card reveal">
+
+            <div class="why-icon">
+                ✦
+            </div>
+
+            <h3>
+                طراحی اختصاصی
+            </h3>
+
+            <p>
+                ظاهر سایت از صفر بر اساس پروژه طراحی می‌شود،
+                نه صرفاً تغییر یک قالب آماده.
+            </p>
+
         </div>
 
-        <h3>
-            طراحی مدرن
-        </h3>
 
-        <p>
-            تمرکز روی ظاهر حرفه‌ای، تجربه کاربری و جزئیات بصری.
-        </p>
+        <div class="why-card reveal">
 
-    </div>
+            <div class="why-icon">
+                ◈
+            </div>
 
+            <h3>
+                تجربه کاربری
+            </h3>
 
-    <div class="why-card">
+            <p>
+                مسیر کاربر باید ساده، قابل فهم و هدفمند باشد.
+            </p>
 
-        <div class="icon">
-            ◆
         </div>
 
-        <h3>
-            مناسب موبایل
-        </h3>
 
-        <p>
-            سایت در موبایل، تبلت و کامپیوتر به شکل درست نمایش داده می‌شود.
-        </p>
+        <div class="why-card reveal">
+
+            <div class="why-icon">
+                ◆
+            </div>
+
+            <h3>
+                موبایل‌فرست
+            </h3>
+
+            <p>
+                سایت برای نمایش درست روی موبایل،
+                تبلت و دسکتاپ طراحی می‌شود.
+            </p>
+
+        </div>
+
+
+        <div class="why-card reveal">
+
+            <div class="why-icon">
+                +
+            </div>
+
+            <h3>
+                قابل توسعه
+            </h3>
+
+            <p>
+                ساختار پروژه طوری طراحی می‌شود که
+                بتوان امکانات بیشتری به آن اضافه کرد.
+            </p>
+
+        </div>
+
 
     </div>
 
@@ -836,12 +2120,12 @@
 
 <section class="section" id="process">
 
-    <div class="section-title">
+    <div class="section-heading reveal">
 
-        <small>روند همکاری</small>
+        <small>PROCESS</small>
 
         <h2>
-            از ایده تا سایت
+            همکاری چطور پیش می‌رود؟
         </h2>
 
     </div>
@@ -850,61 +2134,69 @@
     <div class="process">
 
 
-        <div class="process-card">
+        <div class="step reveal">
 
-            <span>01</span>
+            <span class="step-number">
+                01
+            </span>
 
             <h3>
-                ثبت درخواست
+                درخواست
             </h3>
 
             <p>
-                نیازها و ایده‌ی پروژه خود را برای ما ارسال می‌کنید.
+                اطلاعات پروژه و نیازهایت را ارسال می‌کنی.
             </p>
 
         </div>
 
 
-        <div class="process-card">
+        <div class="step reveal">
 
-            <span>02</span>
+            <span class="step-number">
+                02
+            </span>
 
             <h3>
-                بررسی پروژه
+                بررسی
             </h3>
 
             <p>
-                امکانات، زمان و هزینه‌ی موردنیاز پروژه بررسی می‌شود.
+                امکانات، زمان و هزینه پروژه بررسی می‌شود.
             </p>
 
         </div>
 
 
-        <div class="process-card">
+        <div class="step reveal">
 
-            <span>03</span>
+            <span class="step-number">
+                03
+            </span>
 
             <h3>
-                طراحی و ساخت
+                طراحی
             </h3>
 
             <p>
-                طراحی و پیاده‌سازی سایت شروع می‌شود.
+                طراحی و توسعه سایت شروع می‌شود.
             </p>
 
         </div>
 
 
-        <div class="process-card">
+        <div class="step reveal">
 
-            <span>04</span>
+            <span class="step-number">
+                04
+            </span>
 
             <h3>
-                تحویل پروژه
+                تحویل
             </h3>
 
             <p>
-                پس از بررسی نهایی، سایت آماده‌ی استفاده خواهد بود.
+                پس از بررسی نهایی، پروژه تحویل داده می‌شود.
             </p>
 
         </div>
@@ -919,94 +2211,271 @@
 
 <section class="section" id="contact">
 
-    <div class="section-title">
-
-        <small>شروع همکاری</small>
-
-        <h2>
-            پروژه‌ی خودت را شروع کن
-        </h2>
-
-        <p>
-            اطلاعات پروژه را ارسال کن تا بررسی کنیم.
-        </p>
-
-    </div>
+    <div class="contact-wrapper">
 
 
-    <div class="contact-box">
+        <div class="contact-info reveal">
 
-        <form>
+            <h2>
+                پروژه بعدی
+                می‌تواند مال تو باشد.
+            </h2>
 
-            <input
-                type="text"
-                placeholder="نام و نام خانوادگی"
-            >
+            <p>
+                چند خط درباره ایده‌ات بنویس.
+                بعد از بررسی، درباره امکانات و مسیر اجرای پروژه صحبت می‌کنیم.
+            </p>
 
-            <input
-                type="tel"
-                placeholder="شماره تماس"
-            >
+            <div class="contact-item">
+                ✦ طراحی سایت اختصاصی
+            </div>
 
-            <select>
+            <div class="contact-item">
+                ✦ فروشگاه اینترنتی
+            </div>
 
-                <option>
-                    نوع پروژه را انتخاب کنید
-                </option>
+            <div class="contact-item">
+                ✦ سایت شرکتی و خدماتی
+            </div>
 
-                <option>
-                    فروشگاه اینترنتی
-                </option>
+            <div class="contact-item">
+                ✦ Landing Page
+            </div>
 
-                <option>
-                    سایت شرکتی
-                </option>
-
-                <option>
-                    سایت شخصی
-                </option>
-
-                <option>
-                    سایت خدماتی
-                </option>
-
-                <option>
-                    سایر
-                </option>
-
-            </select>
+        </div>
 
 
-            <textarea
-                placeholder="توضیحات پروژه و امکانات موردنظر..."
-            ></textarea>
+        <div class="contact-form reveal">
+
+            <form onsubmit="sendRequest(event)">
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            نام
+                        </label>
+
+                        <input
+                            type="text"
+                            required
+                            placeholder="نام شما"
+                        >
+
+                    </div>
 
 
-            <button type="button">
-                ارسال درخواست پروژه
-            </button>
+                    <div class="form-group">
 
-        </form>
+                        <label>
+                            شماره تماس
+                        </label>
+
+                        <input
+                            type="tel"
+                            required
+                            placeholder="شماره تماس"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            نوع پروژه
+                        </label>
+
+                        <select required>
+
+                            <option value="">
+                                انتخاب کنید
+                            </option>
+
+                            <option>
+                                سایت شرکتی
+                            </option>
+
+                            <option>
+                                فروشگاه اینترنتی
+                            </option>
+
+                            <option>
+                                سایت خدماتی
+                            </option>
+
+                            <option>
+                                سایت شخصی
+                            </option>
+
+                            <option>
+                                Landing Page
+                            </option>
+
+                            <option>
+                                سایر
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            بودجه تقریبی
+                        </label>
+
+                        <select>
+
+                            <option>
+                                هنوز مشخص نیست
+                            </option>
+
+                            <option>
+                                زیر ۱۰ میلیون
+                            </option>
+
+                            <option>
+                                ۱۰ تا ۲۰ میلیون
+                            </option>
+
+                            <option>
+                                ۲۰ تا ۵۰ میلیون
+                            </option>
+
+                            <option>
+                                بالای ۵۰ میلیون
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        توضیحات پروژه
+                    </label>
+
+                    <textarea
+                        required
+                        placeholder="چه سایتی می‌خواهید؟ چه امکاناتی لازم دارید؟"
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit"
+                >
+                    ارسال درخواست پروژه
+                </button>
+
+            </form>
+
+        </div>
 
     </div>
 
 </section>
 
 
-</main>
+<!-- FINAL CTA -->
+
+<section class="final-cta reveal">
+
+    <h2>
+        آماده‌ای متفاوت دیده شوی؟
+    </h2>
+
+    <p>
+        ایده‌ات را بگو؛ طراحی‌اش با NOVA.
+    </p>
+
+    <a href="#contact" class="btn-primary">
+        شروع پروژه ←
+    </a>
+
+</section>
 
 
 <!-- FOOTER -->
 
 <footer>
 
-    <p>
-        © 2026
-        <strong>NOVA WEB STUDIO</strong>
-        — طراحی سایت حرفه‌ای
-    </p>
+    <div>
+        © 2026 <strong>NOVA WEB STUDIO</strong>
+    </div>
+
+    <div>
+        طراحی سایت • توسعه وب • تجربه کاربری
+    </div>
 
 </footer>
+
+
+<script>
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+const reveals =
+document.querySelectorAll(".reveal");
+
+const observer =
+new IntersectionObserver(
+    (entries) => {
+
+        entries.forEach(entry => {
+
+            if(entry.isIntersecting){
+
+                entry.target.classList.add("show");
+
+            }
+
+        });
+
+    },
+    {
+        threshold:.12
+    }
+);
+
+reveals.forEach(el => {
+
+    observer.observe(el);
+
+});
+
+
+/* =========================
+   FORM
+========================= */
+
+function sendRequest(event){
+
+    event.preventDefault();
+
+    alert(
+        "درخواست شما ثبت شد. در نسخه نهایی، این فرم به سیستم مدیریت پروژه متصل می‌شود."
+    );
+
+}
+
+</script>
 
 
 </body>
