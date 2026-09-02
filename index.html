@@ -2407,10 +2407,14 @@ form.addEventListener("submit", async function(event) {
         });
 
     if (error) {
-        console.error(error);
+    console.error(error);
 
-        alert("متأسفانه درخواست ثبت نشد ❌\nلطفاً دوباره تلاش کنید.");
-        return;
+    alert(
+        "خطا:\n" +
+        error.message
+    );
+
+    return;
     }
 
     alert(
