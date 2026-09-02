@@ -2384,22 +2384,44 @@
 
         const form = document.getElementById("projectForm");
 
-        form.addEventListener("submit", function(event) {
+form.addEventListener("submit", async function(event) {
 
-            event.preventDefault();
+    event.preventDefault();
 
-            const name =
-                document.getElementById("name").value;
+    const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+    const projectType = document.getElementById("projectType").value;
+    const description = document.getElementById("description").value;
+    const deadline = document.getElementById("deadline").value;
+    const budget = document.getElementById("budget").value;
 
-            alert(
-                "درخواست پروژه ثبت شد ✦\n\n" +
-                "ممنون " + name +
-                "!\nبه‌زودی اطلاعات پروژه بررسی می‌شود."
-            );
-
-            form.reset();
-
+    const { error } = await supabaseClient
+        .from("projects")
+        .insert({
+            name: name,
+            phone: phone,
+            project_type: projectType,
+            description: description,
+            deadline: deadline,
+            budget: budget
         });
+
+    if (error) {
+        console.error(error);
+
+        alert("متأسفانه درخواست ثبت نشد ❌\nلطفاً دوباره تلاش کنید.");
+        return;
+    }
+
+    alert(
+        "درخواست پروژه با موفقیت ثبت شد ✦\n\n" +
+        "ممنون " + name +
+        "!\nاطلاعات پروژه با موفقیت دریافت شد."
+    );
+
+    form.reset();
+
+});
 
     </script>
 
