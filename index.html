@@ -1,85 +1,173 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOVA WEB STUDIO</title>
+
+    <title>NOVA WEB STUDIO | طراحی سایت حرفه‌ای</title>
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            background: #111827;
-            color: #EAF2FF;
-            font-family: Arial, sans-serif;
+        html {
+            scroll-behavior: smooth;
         }
 
+        body {
+            font-family: Arial, sans-serif;
+            background: #05070B;
+            color: #E8EEF9;
+            line-height: 1.8;
+        }
+
+        /* HEADER */
+
         header {
+            width: 100%;
             height: 80px;
+            background: #05070B;
+            border-bottom: 1px solid #0B1220;
+
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             padding: 0 6%;
-            border-bottom: 1px solid rgba(234, 242, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .logo {
-            font-size: 22px;
+            font-size: 23px;
             font-weight: bold;
+            letter-spacing: 1px;
+            color: #E8EEF9;
         }
 
         nav {
             display: flex;
-            gap: 25px;
+            gap: 28px;
         }
 
         nav a {
-            color: #EAF2FF;
             text-decoration: none;
+            color: #E8EEF9;
             font-size: 15px;
+            transition: 0.3s;
         }
 
-        .button {
-            background: #3157D5;
-            color: white;
-            text-decoration: none;
-            padding: 12px 22px;
-            border-radius: 8px;
+        nav a:hover {
+            color: #1E3A8A;
         }
+
+        .header-button {
+            text-decoration: none;
+            background: #1E3A8A;
+            color: white;
+            padding: 11px 20px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .header-button:hover {
+            background: #274C9B;
+            transform: translateY(-2px);
+        }
+
+        /* HERO */
 
         .hero {
             min-height: calc(100vh - 80px);
+
             display: flex;
             align-items: center;
-            gap: 50px;
-            padding: 60px 6%;
+            gap: 70px;
+
+            padding: 70px 6%;
+
+            background:
+                radial-gradient(
+                    circle at 80% 50%,
+                    rgba(30, 58, 138, 0.18),
+                    transparent 35%
+                );
         }
 
-        .hero-content {
+        .hero-text {
             flex: 1;
         }
 
-        .hero-content span {
-            color: #3157D5;
+        .small-title {
+            color: #274C9B;
+            font-size: 15px;
             font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
         }
 
-        h1 {
-            font-size: 52px;
-            line-height: 1.4;
-            margin: 20px 0;
+        .hero h1 {
+            font-size: 58px;
+            line-height: 1.35;
+            margin-bottom: 25px;
         }
 
-        .hero-content p {
-            color: #EAF2FF;
+        .hero h1 span {
+            color: #1E3A8A;
+        }
+
+        .hero p {
+            color: #AEB8CA;
             font-size: 18px;
-            line-height: 2;
-            margin-bottom: 30px;
+            max-width: 600px;
+            margin-bottom: 35px;
         }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .primary-button {
+            text-decoration: none;
+            background: #1E3A8A;
+            color: white;
+
+            padding: 14px 25px;
+            border-radius: 11px;
+
+            transition: 0.3s;
+        }
+
+        .primary-button:hover {
+            background: #274C9B;
+            transform: translateY(-3px);
+        }
+
+        .secondary-button {
+            text-decoration: none;
+            color: #E8EEF9;
+
+            border: 1px solid #1E3A8A;
+
+            padding: 13px 25px;
+            border-radius: 11px;
+
+            transition: 0.3s;
+        }
+
+        .secondary-button:hover {
+            background: #0B1220;
+        }
+
+        /* HERO IMAGE */
 
         .hero-image {
             flex: 1;
@@ -88,10 +176,266 @@
         .hero-image img {
             width: 100%;
             display: block;
-            border-radius: 18px;
+
+            border-radius: 22px;
+
+            border: 1px solid #0B1220;
+
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.5),
+                0 0 60px rgba(30, 58, 138, 0.15);
         }
 
-        @media (max-width: 800px) {
+        /* SERVICES */
+
+        .section {
+            padding: 100px 6%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .section-title small {
+            color: #274C9B;
+            font-weight: bold;
+        }
+
+        .section-title h2 {
+            font-size: 40px;
+            margin-top: 10px;
+        }
+
+        .section-title p {
+            color: #8E99AC;
+            margin-top: 10px;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .service-card {
+            background: #0B1220;
+            border: 1px solid #111C31;
+
+            padding: 35px;
+
+            border-radius: 18px;
+
+            transition: 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: #1E3A8A;
+        }
+
+        .service-number {
+            color: #1E3A8A;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .service-card h3 {
+            font-size: 22px;
+            margin: 18px 0 12px;
+        }
+
+        .service-card p {
+            color: #9BA6B8;
+            font-size: 15px;
+        }
+
+        /* PORTFOLIO */
+
+        .portfolio {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .project {
+            background: #0B1220;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid #111C31;
+            transition: 0.3s;
+        }
+
+        .project:hover {
+            transform: translateY(-7px);
+            border-color: #1E3A8A;
+        }
+
+        .project img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-info {
+            padding: 22px;
+        }
+
+        .project-info h3 {
+            margin-bottom: 7px;
+        }
+
+        .project-info p {
+            color: #9BA6B8;
+            font-size: 14px;
+        }
+
+        /* WHY US */
+
+        .why-us {
+            background: #0B1220;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .why-card {
+            text-align: center;
+            padding: 35px;
+        }
+
+        .why-card .icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .why-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .why-card p {
+            color: #9BA6B8;
+            font-size: 14px;
+        }
+
+        /* PROCESS */
+
+        .process {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .process-card {
+            background: #0B1220;
+            border: 1px solid #111C31;
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .process-card span {
+            color: #1E3A8A;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .process-card h3 {
+            margin: 12px 0;
+        }
+
+        .process-card p {
+            color: #9BA6B8;
+            font-size: 14px;
+        }
+
+        /* CONTACT */
+
+        .contact-box {
+            max-width: 850px;
+            margin: auto;
+
+            background: #0B1220;
+            border: 1px solid #111C31;
+
+            padding: 50px;
+            border-radius: 22px;
+        }
+
+        .contact-box form {
+            display: grid;
+            gap: 18px;
+        }
+
+        .contact-box input,
+        .contact-box textarea,
+        .contact-box select {
+            width: 100%;
+
+            background: #05070B;
+            color: #E8EEF9;
+
+            border: 1px solid #18243A;
+
+            padding: 15px;
+            border-radius: 10px;
+
+            font-size: 15px;
+            outline: none;
+        }
+
+        .contact-box input:focus,
+        .contact-box textarea:focus,
+        .contact-box select:focus {
+            border-color: #1E3A8A;
+        }
+
+        .contact-box textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contact-box button {
+            border: none;
+
+            background: #1E3A8A;
+            color: white;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .contact-box button:hover {
+            background: #274C9B;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #05070B;
+            border-top: 1px solid #0B1220;
+
+            text-align: center;
+
+            padding: 35px 20px;
+
+            color: #778298;
+        }
+
+        footer strong {
+            color: #E8EEF9;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
 
             nav {
                 display: none;
@@ -102,69 +446,569 @@
                 text-align: center;
             }
 
-            h1 {
-                font-size: 36px;
-            }
-
-            .hero-content,
-            .hero-image {
+            .hero-text {
                 width: 100%;
             }
+
+            .hero p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .services,
+            .portfolio,
+            .why-us {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .process {
+                grid-template-columns: 1fr 1fr;
+            }
         }
+
+        @media (max-width: 600px) {
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .section-title h2 {
+                font-size: 30px;
+            }
+
+            .services,
+            .portfolio,
+            .why-us,
+            .process {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-box {
+                padding: 25px;
+            }
+
+            .header-button {
+                display: none;
+            }
+        }
+
     </style>
 </head>
 
+
 <body>
 
-    <header>
 
-        <div class="logo">
+<!-- HEADER -->
+
+<header>
+
+    <div class="logo">
+        NOVA WEB STUDIO
+    </div>
+
+    <nav>
+
+        <a href="#home">خانه</a>
+
+        <a href="#services">خدمات</a>
+
+        <a href="#portfolio">نمونه‌کارها</a>
+
+        <a href="#process">روند همکاری</a>
+
+        <a href="#contact">تماس</a>
+
+    </nav>
+
+    <a href="#contact" class="header-button">
+        درخواست پروژه
+    </a>
+
+</header>
+
+
+<!-- HERO -->
+
+<main id="home">
+
+<section class="hero">
+
+    <div class="hero-text">
+
+        <div class="small-title">
             NOVA WEB STUDIO
         </div>
 
-        <nav>
-            <a href="#">خانه</a>
-            <a href="#">خدمات</a>
-            <a href="#">نمونه‌کارها</a>
-            <a href="#">روند همکاری</a>
-            <a href="#">درباره من</a>
-            <a href="#">تماس</a>
-        </nav>
+        <h1>
+            سایت‌هایی که
+            <span>حرفه‌ای دیده می‌شوند.</span>
+        </h1>
 
-        <a href="#" class="button">
-            درخواست پروژه
-        </a>
+        <p>
+            طراحی سایت مدرن، اختصاصی و حرفه‌ای برای برندها و کسب‌وکارهایی که می‌خواهند متفاوت دیده شوند و حضور قدرتمندی در فضای آنلاین داشته باشند.
+        </p>
 
-    </header>
+        <div class="hero-buttons">
 
-    <section class="hero">
-
-        <div class="hero-content">
-
-            <span>WEB DESIGN STUDIO</span>
-
-            <h1>
-                طراحی سایت
-                برای برندهای
-                متفاوت
-            </h1>
-
-            <p>
-                طراحی سایت مدرن و اختصاصی
-                برای کسب‌وکارهایی که می‌خواهند حرفه‌ای دیده شوند.
-            </p>
-
-            <a href="#" class="button">
+            <a href="#contact" class="primary-button">
                 شروع یک پروژه
+            </a>
+
+            <a href="#portfolio" class="secondary-button">
+                مشاهده نمونه‌کارها
             </a>
 
         </div>
 
-        <div class="hero-image">
-            <img src="70.jpeg" alt="NOVA WEB STUDIO">
+    </div>
+
+
+    <div class="hero-image">
+
+        <img src="70.jpeg" alt="طراحی سایت NOVA">
+
+    </div>
+
+</section>
+
+
+<!-- SERVICES -->
+
+<section class="section" id="services">
+
+    <div class="section-title">
+
+        <small>خدمات ما</small>
+
+        <h2>
+            چیزی بیشتر از یک سایت
+        </h2>
+
+        <p>
+            طراحی و ساخت تجربه‌ای حرفه‌ای برای برند شما
+        </p>
+
+    </div>
+
+
+    <div class="services">
+
+        <div class="service-card">
+
+            <span class="service-number">
+                01
+            </span>
+
+            <h3>
+                طراحی سایت اختصاصی
+            </h3>
+
+            <p>
+                طراحی ظاهری مدرن و اختصاصی متناسب با هویت برند و نیازهای کسب‌وکار شما.
+            </p>
+
         </div>
 
-    </section>
+
+        <div class="service-card">
+
+            <span class="service-number">
+                02
+            </span>
+
+            <h3>
+                فروشگاه اینترنتی
+            </h3>
+
+            <p>
+                ساخت فروشگاه اینترنتی حرفه‌ای با صفحات محصول، دسته‌بندی، سبد خرید و امکانات موردنیاز.
+            </p>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <span class="service-number">
+                03
+            </span>
+
+            <h3>
+                طراحی سایت شرکتی
+            </h3>
+
+            <p>
+                سایت‌های حرفه‌ای برای معرفی شرکت، خدمات، نمونه‌کارها و ایجاد اعتبار بیشتر.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PORTFOLIO -->
+
+<section class="section" id="portfolio">
+
+    <div class="section-title">
+
+        <small>نمونه‌کارها</small>
+
+        <h2>
+            پروژه‌های منتخب
+        </h2>
+
+        <p>
+            چند نمونه از طراحی‌هایی که در NOVA ساخته شده‌اند
+        </p>
+
+    </div>
+
+
+    <div class="portfolio">
+
+
+        <div class="project">
+
+            <img src="71.jpeg" alt="نمونه سایت کتاب">
+
+            <div class="project-info">
+
+                <h3>
+                    کتابخانه‌ی نیمه‌شب
+                </h3>
+
+                <p>
+                    طراحی سایت فروشگاهی برای کتاب‌فروشی
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="project">
+
+            <img src="72.jpeg" alt="نمونه سایت فشن">
+
+            <div class="project-info">
+
+                <h3>
+                    Fashion Store
+                </h3>
+
+                <p>
+                    طراحی فروشگاه اینترنتی مدرن
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="project">
+
+            <img src="73.jpeg" alt="نمونه سایت پوشاک">
+
+            <div class="project-info">
+
+                <h3>
+                    Clothing Store
+                </h3>
+
+                <p>
+                    طراحی سایت فروش پوشاک
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="project">
+
+            <img src="74.jpeg" alt="نمونه سایت دکوراسیون">
+
+            <div class="project-info">
+
+                <h3>
+                    Home Decor
+                </h3>
+
+                <p>
+                    طراحی سایت برای دکوراسیون داخلی
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="project">
+
+            <img src="75.jpeg" alt="نمونه سایت جواهرات">
+
+            <div class="project-info">
+
+                <h3>
+                    Jewelry Store
+                </h3>
+
+                <p>
+                    طراحی فروشگاه آنلاین جواهرات
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- WHY US -->
+
+<section class="section why-us">
+
+    <div class="why-card">
+
+        <div class="icon">
+            ✦
+        </div>
+
+        <h3>
+            طراحی اختصاصی
+        </h3>
+
+        <p>
+            هر پروژه بر اساس نیاز و هویت همان برند طراحی می‌شود.
+        </p>
+
+    </div>
+
+
+    <div class="why-card">
+
+        <div class="icon">
+            ◈
+        </div>
+
+        <h3>
+            طراحی مدرن
+        </h3>
+
+        <p>
+            تمرکز روی ظاهر حرفه‌ای، تجربه کاربری و جزئیات بصری.
+        </p>
+
+    </div>
+
+
+    <div class="why-card">
+
+        <div class="icon">
+            ◆
+        </div>
+
+        <h3>
+            مناسب موبایل
+        </h3>
+
+        <p>
+            سایت در موبایل، تبلت و کامپیوتر به شکل درست نمایش داده می‌شود.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- PROCESS -->
+
+<section class="section" id="process">
+
+    <div class="section-title">
+
+        <small>روند همکاری</small>
+
+        <h2>
+            از ایده تا سایت
+        </h2>
+
+    </div>
+
+
+    <div class="process">
+
+
+        <div class="process-card">
+
+            <span>01</span>
+
+            <h3>
+                ثبت درخواست
+            </h3>
+
+            <p>
+                نیازها و ایده‌ی پروژه خود را برای ما ارسال می‌کنید.
+            </p>
+
+        </div>
+
+
+        <div class="process-card">
+
+            <span>02</span>
+
+            <h3>
+                بررسی پروژه
+            </h3>
+
+            <p>
+                امکانات، زمان و هزینه‌ی موردنیاز پروژه بررسی می‌شود.
+            </p>
+
+        </div>
+
+
+        <div class="process-card">
+
+            <span>03</span>
+
+            <h3>
+                طراحی و ساخت
+            </h3>
+
+            <p>
+                طراحی و پیاده‌سازی سایت شروع می‌شود.
+            </p>
+
+        </div>
+
+
+        <div class="process-card">
+
+            <span>04</span>
+
+            <h3>
+                تحویل پروژه
+            </h3>
+
+            <p>
+                پس از بررسی نهایی، سایت آماده‌ی استفاده خواهد بود.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section class="section" id="contact">
+
+    <div class="section-title">
+
+        <small>شروع همکاری</small>
+
+        <h2>
+            پروژه‌ی خودت را شروع کن
+        </h2>
+
+        <p>
+            اطلاعات پروژه را ارسال کن تا بررسی کنیم.
+        </p>
+
+    </div>
+
+
+    <div class="contact-box">
+
+        <form>
+
+            <input
+                type="text"
+                placeholder="نام و نام خانوادگی"
+            >
+
+            <input
+                type="tel"
+                placeholder="شماره تماس"
+            >
+
+            <select>
+
+                <option>
+                    نوع پروژه را انتخاب کنید
+                </option>
+
+                <option>
+                    فروشگاه اینترنتی
+                </option>
+
+                <option>
+                    سایت شرکتی
+                </option>
+
+                <option>
+                    سایت شخصی
+                </option>
+
+                <option>
+                    سایت خدماتی
+                </option>
+
+                <option>
+                    سایر
+                </option>
+
+            </select>
+
+
+            <textarea
+                placeholder="توضیحات پروژه و امکانات موردنظر..."
+            ></textarea>
+
+
+            <button type="button">
+                ارسال درخواست پروژه
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        © 2026
+        <strong>NOVA WEB STUDIO</strong>
+        — طراحی سایت حرفه‌ای
+    </p>
+
+</footer>
+
 
 </body>
-          </html>
+
+    </html>
