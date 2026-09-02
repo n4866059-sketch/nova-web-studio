@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVA WEB STUDIO</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #111827;
+            color: #EAF2FF;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            border-bottom: 1px solid rgba(234, 242, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: #EAF2FF;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .button {
+            background: #3157D5;
+            color: white;
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+        }
+
+        .hero {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            padding: 60px 6%;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-content span {
+            color: #3157D5;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 52px;
+            line-height: 1.4;
+            margin: 20px 0;
+        }
+
+        .hero-content p {
+            color: #EAF2FF;
+            font-size: 18px;
+            line-height: 2;
+            margin-bottom: 30px;
+        }
+
+        .hero-image {
+            flex: 1;
+        }
+
+        .hero-image img {
+            width: 100%;
+            display: block;
+            border-radius: 18px;
+        }
+
+        @media (max-width: 800px) {
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .hero-content,
+            .hero-image {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+            NOVA WEB STUDIO
+        </div>
+
+        <nav>
+            <a href="#">خانه</a>
+            <a href="#">خدمات</a>
+            <a href="#">نمونه‌کارها</a>
+            <a href="#">روند همکاری</a>
+            <a href="#">درباره من</a>
+            <a href="#">تماس</a>
+        </nav>
+
+        <a href="#" class="button">
+            درخواست پروژه
+        </a>
+
+    </header>
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <span>WEB DESIGN STUDIO</span>
+
+            <h1>
+                طراحی سایت
+                برای برندهای
+                متفاوت
+            </h1>
+
+            <p>
+                طراحی سایت مدرن و اختصاصی
+                برای کسب‌وکارهایی که می‌خواهند حرفه‌ای دیده شوند.
+            </p>
+
+            <a href="#" class="button">
+                شروع یک پروژه
+            </a>
+
+        </div>
+
+        <div class="hero-image">
+            <img src="70.jpeg" alt="NOVA WEB STUDIO">
+        </div>
+
+    </section>
+
+</body>
+          </html>
