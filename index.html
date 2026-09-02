@@ -2382,6 +2382,21 @@
            FORM
         ========================= */
 
+        
+            </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://etupnpsxndnyaprsuqwf.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_t0xXPJ72fJ6OMOXfl6YkBw_SzkKQwQP";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+</script>
         const form = document.getElementById("projectForm");
 
 form.addEventListener("submit", async function(event) {
@@ -2427,21 +2442,7 @@ form.addEventListener("submit", async function(event) {
 
 });
 
-    </script>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-const SUPABASE_URL = "https://etupnpsxndnyaprsuqwf.supabase.co";
-
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_t0xXPJ72fJ6OMOXfl6YkBw_SzkKQwQP";
-
-const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-);
-</script>
+    
 </body>
 
    </html>
