@@ -2736,7 +2736,179 @@ form.addEventListener("submit", async function(event) {
 
 });
 </script>
-    
+
+    <!-- =========================
+     PRIVATE CHAT
+========================= -->
+
+<button class="chat-toggle" id="chatToggle" aria-label="باز کردن چت">
+    💬
+</button>
+
+<div class="chat-window" id="chatWindow">
+
+    <div class="chat-header">
+
+        <div class="chat-profile">
+
+            <div class="chat-avatar">
+                ✦
+            </div>
+
+            <div>
+                <strong>NOVA WEB STUDIO</strong>
+                <span>آنلاین • پاسخگویی</span>
+            </div>
+
+        </div>
+
+        <button class="chat-close" id="chatClose">
+            ×
+        </button>
+
+    </div>
+
+
+    <div class="chat-messages" id="chatMessages">
+
+        <div class="chat-message admin">
+
+            سلام 👋
+            <br>
+            خوش اومدی به NOVA WEB STUDIO.
+            <br>
+            چطور می‌تونیم کمکت کنیم؟
+
+            <span class="chat-time">
+                همین الان
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="chat-input-area">
+
+        <input
+            type="text"
+            id="chatInput"
+            class="chat-input"
+            placeholder="پیامت رو بنویس..."
+            autocomplete="off">
+
+        <button
+            id="chatSend"
+            class="chat-send">
+            ➤
+        </button>
+
+    </div>
+
+</div>
+    <script>
+
+const chatToggle = document.getElementById("chatToggle");
+const chatWindow = document.getElementById("chatWindow");
+const chatClose = document.getElementById("chatClose");
+
+const chatInput = document.getElementById("chatInput");
+const chatSend = document.getElementById("chatSend");
+const chatMessages = document.getElementById("chatMessages");
+
+
+// باز کردن چت
+chatToggle.addEventListener("click", function() {
+
+    chatWindow.classList.add("active");
+
+    setTimeout(() => {
+        chatInput.focus();
+    }, 200);
+
+});
+
+
+// بستن چت
+chatClose.addEventListener("click", function() {
+
+    chatWindow.classList.remove("active");
+
+});
+
+
+// ارسال پیام نمایشی
+function sendChatMessage() {
+
+    const message = chatInput.value.trim();
+
+    if (message === "") return;
+
+
+    const messageBox = document.createElement("div");
+
+    messageBox.className = "chat-message user";
+
+    messageBox.innerHTML = `
+        ${message}
+
+        <span class="chat-time">
+            همین الان
+        </span>
+    `;
+
+
+    chatMessages.appendChild(messageBox);
+
+    chatInput.value = "";
+
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+
+    // پاسخ نمایشی موقت
+    setTimeout(() => {
+
+        const reply = document.createElement("div");
+
+        reply.className = "chat-message admin";
+
+        reply.innerHTML = `
+            پیام شما دریافت شد ✦
+            <br>
+            به‌زودی پاسخ می‌دیم.
+
+            <span class="chat-time">
+                همین الان
+            </span>
+        `;
+
+        chatMessages.appendChild(reply);
+
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    }, 800);
+
+}
+
+
+// دکمه ارسال
+chatSend.addEventListener("click", sendChatMessage);
+
+
+// ارسال با Enter
+chatInput.addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+
+        event.preventDefault();
+
+        sendChatMessage();
+
+    }
+
+});
+
+    </script>
 </body>
 
    </html>
