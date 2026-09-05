@@ -2808,6 +2808,8 @@ form.addEventListener("submit", async function(event) {
 </div>
     <script>
 
+<script>
+
 const chatToggle = document.getElementById("chatToggle");
 const chatWindow = document.getElementById("chatWindow");
 const chatClose = document.getElementById("chatClose");
@@ -2816,99 +2818,444 @@ const chatInput = document.getElementById("chatInput");
 const chatSend = document.getElementById("chatSend");
 const chatMessages = document.getElementById("chatMessages");
 
+let currentUser = null;
+let currentConversation = null;
+let chatChannel = null;
 
-// باز کردن چت
-chatToggle.addEventListener("click", function() {
+const renderedMessages = new Set();
+
+
+// =========================
+// OPEN CHAT
+// =========================
+
+chatToggle.addEventListener("click", async function () {
 
     chatWindow.classList.add("active");
 
-    setTimeout(() => {
-        chatInput.focus();
-    }, 200);
+    chatInput.focus();
+
+    await initializeChat();
 
 });
 
 
-// بستن چت
-chatClose.addEventListener("click", function() {
+// =========================
+// CLOSE CHAT
+// =========================
+
+chatClose.addEventListener("click", function () {
 
     chatWindow.classList.remove("active");
 
 });
 
 
-// ارسال پیام نمایشی
-function sendChatMessage() {
+// =========================
+// INITIALIZE CHAT
+// =========================
 
-    const message = chatInput.value.trim();
+async function initializeChat() {
 
-    if (message === "") return;
+    if (currentConversation) {
+        return;
+    }
 
 
-    const messageBox = document.createElement("div");
+    // ورود ناشناس
+    const { data: authData, error: authError } =
+        await supabaseClient.auth.signInAnonymously();
 
-    messageBox.className = "chat-message user";
+
+    if (authError) {
+
+        console.error(authError);
+
+        alert(
+            "اتصال به چت برقرار نشد.\n\n" +
+            authError.message
+        );
+
+        return;
+    }
+
+
+    currentUser = authData.user;
+
+
+    if (!currentUser) {
+
+        alert("امکان شناسایی کاربر وجود ندارد.");
+
+        return;
+    }
+
+
+    // بررسی گفتگوی قبلی همین کاربر
+    const { data: conversations, error: conversationError } =
+        await supabaseClient
+            .from("chat_conversations")
+            .select("*")
+            .eq("customer_id", currentUser.id)
+            .order("created_at", { ascending: false })
+            .limit(1);
+
+
+    if (conversationError) {
+
+        console.error(conversationError);
+
+        alert(
+            "خطا در دریافت گفت‌وگو:\n\n" +
+            conversationError.message
+        );
+
+        return;
+    }
+
+
+    // اگر گفتگوی قبلی وجود داشت
+    if (conversations && conversations.length > 0) {
+
+        currentConversation = conversations[0];
+
+    }
+
+    // اگر گفتگوی قبلی وجود نداشت
+    else {
+
+        const customerName = prompt(
+            "نام شما را وارد کنید:"
+        );
+
+        if (!customerName) return;
+
+
+        const customerPhone = prompt(
+            "شماره تماس خود را وارد کنید:"
+        );
+
+        if (!customerPhone) return;
+
+
+        const { data: newConversation, error: createError } =
+            await supabaseClient
+                .from("chat_conversations")
+                .insert({
+
+                    customer_id: currentUser.id,
+
+                    customer_name: customerName,
+
+                    customer_phone: customerPhone,
+
+                    status: "باز"
+
+                })
+                .select()
+                .single();
+
+
+        if (createError) {
+
+            console.error(createError);
+
+            alert(
+                "خطا در ساخت گفت‌وگو:\n\n" +
+                createError.message
+            );
+
+            return;
+        }
+
+
+        currentConversation = newConversation;
+
+    }
+
+
+    // پیام‌های قبلی
+    await loadMessages();
+
+
+    // فعال کردن Realtime
+    subscribeToMessages();
+
+}
+
+
+// =========================
+// LOAD OLD MESSAGES
+// =========================
+
+async function loadMessages() {
+
+    if (!currentConversation) return;
+
+
+    const { data, error } =
+        await supabaseClient
+            .from("chat_messages")
+            .select("*")
+            .eq(
+                "conversation_id",
+                currentConversation.id
+            )
+            .order("created_at", {
+                ascending: true
+            });
+
+
+    if (error) {
+
+        console.error(error);
+
+        return;
+    }
+
+
+    data.forEach(message => {
+
+        renderMessage(message);
+
+    });
+
+
+    chatMessages.scrollTop =
+        chatMessages.scrollHeight;
+
+}
+
+
+// =========================
+// REALTIME
+// =========================
+
+function subscribeToMessages() {
+
+    if (!currentConversation) return;
+
+
+    if (chatChannel) {
+
+        supabaseClient.removeChannel(chatChannel);
+
+    }
+
+
+    chatChannel =
+        supabaseClient
+            .channel(
+                "chat-" + currentConversation.id
+            )
+            .on(
+                "postgres_changes",
+                {
+                    event: "INSERT",
+
+                    schema: "public",
+
+                    table: "chat_messages",
+
+                    filter:
+                        "conversation_id=eq." +
+                        currentConversation.id
+
+                },
+
+                function (payload) {
+
+                    renderMessage(
+                        payload.new
+                    );
+
+                }
+
+            )
+            .subscribe();
+
+}
+
+
+// =========================
+// RENDER MESSAGE
+// =========================
+
+function renderMessage(message) {
+
+    if (renderedMessages.has(message.id)) {
+        return;
+    }
+
+
+    renderedMessages.add(message.id);
+
+
+    const messageBox =
+        document.createElement("div");
+
+
+    if (message.sender_type === "admin") {
+
+        messageBox.className =
+            "chat-message admin";
+
+    } else {
+
+        messageBox.className =
+            "chat-message user";
+
+    }
+
+
+    const time =
+        new Date(message.created_at)
+            .toLocaleTimeString(
+                "fa-IR",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+
 
     messageBox.innerHTML = `
-        ${message}
+
+        ${escapeHtml(message.message)}
 
         <span class="chat-time">
-            همین الان
+            ${time}
         </span>
+
     `;
 
 
     chatMessages.appendChild(messageBox);
 
-    chatInput.value = "";
 
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-
-
-    // پاسخ نمایشی موقت
-    setTimeout(() => {
-
-        const reply = document.createElement("div");
-
-        reply.className = "chat-message admin";
-
-        reply.innerHTML = `
-            پیام شما دریافت شد ✦
-            <br>
-            به‌زودی پاسخ می‌دیم.
-
-            <span class="chat-time">
-                همین الان
-            </span>
-        `;
-
-        chatMessages.appendChild(reply);
-
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-
-    }, 800);
+    chatMessages.scrollTop =
+        chatMessages.scrollHeight;
 
 }
 
 
-// دکمه ارسال
-chatSend.addEventListener("click", sendChatMessage);
+// =========================
+// SEND MESSAGE
+// =========================
+
+async function sendChatMessage() {
+
+    const message =
+        chatInput.value.trim();
 
 
-// ارسال با Enter
-chatInput.addEventListener("keydown", function(event) {
+    if (!message) return;
 
-    if (event.key === "Enter") {
 
-        event.preventDefault();
+    if (!currentConversation) {
 
-        sendChatMessage();
+        await initializeChat();
 
     }
 
-});
 
-    </script>
+    if (!currentConversation) return;
+
+
+    chatSend.disabled = true;
+
+
+    const { data, error } =
+        await supabaseClient
+            .from("chat_messages")
+            .insert({
+
+                conversation_id:
+                    currentConversation.id,
+
+                sender_type:
+                    "customer",
+
+                message:
+                    message
+
+            })
+            .select()
+            .single();
+
+
+    chatSend.disabled = false;
+
+
+    if (error) {
+
+        console.error(error);
+
+        alert(
+            "پیام ارسال نشد:\n\n" +
+            error.message
+        );
+
+        return;
+    }
+
+
+    chatInput.value = "";
+
+
+    // نمایش فوری پیام
+    renderMessage(data);
+
+}
+
+
+// =========================
+// SEND BUTTON
+// =========================
+
+chatSend.addEventListener(
+    "click",
+    sendChatMessage
+);
+
+
+// =========================
+// ENTER
+// =========================
+
+chatInput.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (event.key === "Enter") {
+
+            event.preventDefault();
+
+            sendChatMessage();
+
+        }
+
+    }
+);
+
+
+// =========================
+// SECURITY
+// =========================
+
+function escapeHtml(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+</script>
+
 </body>
 
    </html>
