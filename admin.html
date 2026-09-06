@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NOVA ADMIN</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:'Vazirmatn',sans-serif;
+    background:#05070b;
+    color:#fff;
+    min-height:100vh;
+}
+
+button{
+    font-family:inherit;
+}
+
+.admin-layout{
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:250px;
+    background:#0b1220;
+    border-left:1px solid rgba(255,255,255,.08);
+    padding:25px 16px;
+    position:fixed;
+    top:0;
+    right:0;
+    bottom:0;
+}
+
+.logo{
+    padding:10px 14px 30px;
+    font-size:22px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.logo span{
+    color:#274c9b;
+}
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.menu button{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:#9da8b8;
+    padding:14px;
+    border-radius:12px;
+    text-align:right;
+    cursor:pointer;
+    font-size:14px;
+    transition:.25s;
+}
+
+.menu button:hover,
+.menu button.active{
+    background:#1e3a8a;
+    color:#fff;
+}
+
+.logout{
+    position:absolute;
+    bottom:25px;
+    right:16px;
+    left:16px;
+}
+
+.logout button{
+    width:100%;
+    padding:13px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:12px;
+    background:rgba(255,255,255,.04);
+    color:#aaa;
+    cursor:pointer;
+}
+
+/* MAIN */
+
+.main{
+    width:calc(100% - 250px);
+    margin-right:250px;
+    padding:35px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:35px;
+}
+
+.topbar h1{
+    font-size:28px;
+}
+
+.topbar p{
+    color:#7f8a9b;
+    margin-top:7px;
+    font-size:13px;
+}
+
+.admin-user{
+    padding:10px 16px;
+    background:#0b1220;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:12px;
+    font-size:13px;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:30px;
+}
+
+.stat-card{
+    background:#0b1220;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:18px;
+    padding:22px;
+}
+
+.stat-icon{
+    font-size:25px;
+    margin-bottom:15px;
+}
+
+.stat-title{
+    color:#8490a3;
+    font-size:12px;
+}
+
+.stat-number{
+    font-size:28px;
+    font-weight:800;
+    margin-top:7px;
+}
+
+/* SECTION */
+
+.section{
+    background:#0b1220;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:20px;
+    padding:25px;
+    margin-bottom:25px;
+}
+
+.section-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:22px;
+}
+
+.section-header h2{
+    font-size:17px;
+}
+
+.section-header button{
+    background:#1e3a8a;
+    border:0;
+    color:#fff;
+    padding:10px 15px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+/* REQUESTS */
+
+.request{
+    display:grid;
+    grid-template-columns:1.2fr 1fr 1fr 1fr auto;
+    gap:15px;
+    align-items:center;
+    padding:17px 0;
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.request:last-child{
+    border-bottom:0;
+}
+
+.customer strong{
+    display:block;
+    font-size:13px;
+}
+
+.customer span{
+    color:#778294;
+    font-size:11px;
+}
+
+.type{
+    color:#b8c0ce;
+    font-size:12px;
+}
+
+.date{
+    color:#778294;
+    font-size:12px;
+}
+
+.status{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:8px;
+    font-size:10px;
+    background:rgba(39,76,155,.2);
+    color:#7fa4ff;
+}
+
+.view-btn{
+    border:1px solid rgba(255,255,255,.1);
+    background:transparent;
+    color:#fff;
+    padding:8px 12px;
+    border-radius:9px;
+    cursor:pointer;
+}
+
+/* QUICK */
+
+.quick-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.quick-card{
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:15px;
+    padding:20px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.quick-card:hover{
+    transform:translateY(-3px);
+    border-color:#274c9b;
+}
+
+.quick-card div{
+    font-size:25px;
+    margin-bottom:10px;
+}
+
+.quick-card h3{
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.quick-card p{
+    color:#788496;
+    font-size:11px;
+}
+
+/* MOBILE */
+
+.mobile-header{
+    display:none;
+}
+
+@media(max-width:900px){
+
+    .sidebar{
+        width:210px;
+    }
+
+    .main{
+        width:calc(100% - 210px);
+        margin-right:210px;
+        padding:25px;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .request{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:650px){
+
+    .admin-layout{
+        display:block;
+    }
+
+    .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+        padding:15px;
+        border-left:0;
+        border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .logo{
+        padding:8px 10px 15px;
+    }
+
+    .menu{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .menu button{
+        font-size:11px;
+        text-align:center;
+        padding:10px 5px;
+    }
+
+    .logout{
+        position:static;
+        margin-top:10px;
+    }
+
+    .main{
+        width:100%;
+        margin:0;
+        padding:18px;
+    }
+
+    .topbar{
+        align-items:flex-start;
+        gap:10px;
+    }
+
+    .topbar h1{
+        font-size:22px;
+    }
+
+    .admin-user{
+        font-size:10px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .stat-card{
+        padding:16px;
+    }
+
+    .stat-number{
+        font-size:23px;
+    }
+
+    .section{
+        padding:18px;
+    }
+
+    .request{
+        grid-template-columns:1fr;
+        gap:8px;
+        padding:15px 0;
+    }
+
+    .quick-grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="admin-layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            NOVA <span>ADMIN</span>
+        </div>
+
+        <div class="menu">
+
+            <button class="active">
+                📊 داشبورد
+            </button>
+
+            <button>
+                📩 درخواست‌های پروژه
+            </button>
+
+            <button>
+                💬 چت مشتریان
+            </button>
+
+            <button>
+                📁 پروژه‌ها
+            </button>
+
+            <button>
+                💰 قیمت‌ها
+            </button>
+
+            <button>
+                ⚙️ تنظیمات
+            </button>
+
+        </div>
+
+        <div class="logout">
+            <button>
+                خروج از پنل
+            </button>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <div class="topbar">
+
+            <div>
+                <h1>داشبورد</h1>
+                <p>خوش اومدی به پنل مدیریت NOVA WEB STUDIO 👋</p>
+            </div>
+
+            <div class="admin-user">
+                👤 مدیر سایت
+            </div>
+
+        </div>
+
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">📩</div>
+
+                <div class="stat-title">
+                    درخواست‌های جدید
+                </div>
+
+                <div class="stat-number">
+                    4
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">💬</div>
+
+                <div class="stat-title">
+                    پیام‌های جدید
+                </div>
+
+                <div class="stat-number">
+                    7
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">🚀</div>
+
+                <div class="stat-title">
+                    پروژه‌های فعال
+                </div>
+
+                <div class="stat-number">
+                    3
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">💰</div>
+
+                <div class="stat-title">
+                    پروژه‌های تکمیل‌شده
+                </div>
+
+                <div class="stat-number">
+                    12
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- REQUESTS -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <h2>
+                    آخرین درخواست‌های پروژه
+                </h2>
+
+                <button>
+                    مشاهده همه
+                </button>
+
+            </div>
+
+
+            <div class="request">
+
+                <div class="customer">
+                    <strong>مشتری جدید</strong>
+                    <span>0912•••••••</span>
+                </div>
+
+                <div class="type">
+                    فروشگاه اینترنتی
+                </div>
+
+                <div class="date">
+                    امروز
+                </div>
+
+                <div>
+                    <span class="status">
+                        جدید
+                    </span>
+                </div>
+
+                <button class="view-btn">
+                    مشاهده
+                </button>
+
+            </div>
+
+
+            <div class="request">
+
+                <div class="customer">
+                    <strong>مشتری جدید</strong>
+                    <span>0935•••••••</span>
+                </div>
+
+                <div class="type">
+                    سایت شرکتی
+                </div>
+
+                <div class="date">
+                    دیروز
+                </div>
+
+                <div>
+                    <span class="status">
+                        در حال بررسی
+                    </span>
+                </div>
+
+                <button class="view-btn">
+                    مشاهده
+                </button>
+
+            </div>
+
+
+            <div class="request">
+
+                <div class="customer">
+                    <strong>مشتری جدید</strong>
+                    <span>0991•••••••</span>
+                </div>
+
+                <div class="type">
+                    سایت شخصی
+                </div>
+
+                <div class="date">
+                    ۲ روز پیش
+                </div>
+
+                <div>
+                    <span class="status">
+                        جدید
+                    </span>
+                </div>
+
+                <button class="view-btn">
+                    مشاهده
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- QUICK ACCESS -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <h2>
+                    دسترسی سریع
+                </h2>
+
+            </div>
+
+
+            <div class="quick-grid">
+
+                <div class="quick-card">
+
+                    <div>📩</div>
+
+                    <h3>
+                        درخواست‌های پروژه
+                    </h3>
+
+                    <p>
+                        مشاهده و مدیریت درخواست‌های مشتریان
+                    </p>
+
+                </div>
+
+
+                <div class="quick-card">
+
+                    <div>💬</div>
+
+                    <h3>
+                        چت مشتریان
+                    </h3>
+
+                    <p>
+                        پاسخ دادن به پیام‌های مشتریان
+                    </p>
+
+                </div>
+
+
+                <div class="quick-card">
+
+                    <div>💰</div>
+
+                    <h3>
+                        مدیریت قیمت‌ها
+                    </h3>
+
+                    <p>
+                        تغییر قیمت پکیج‌های سایت
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+  </html>
