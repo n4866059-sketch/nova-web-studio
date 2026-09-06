@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>NOVA ADMIN</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
@@ -391,10 +392,197 @@ button{
         grid-template-columns:1fr;
     }
 }
+    /* =========================
+   ADMIN LOGIN
+========================= */
+
+.admin-login {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #182b58 0%,
+            #05070b 55%
+        );
+
+    padding: 20px;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 420px;
+
+    padding: 40px;
+
+    background: rgba(11,18,32,0.96);
+
+    border: 1px solid rgba(39,76,155,0.45);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.6);
+}
+
+.login-logo {
+    font-size: 32px;
+    font-weight: 900;
+
+    color: white;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 25px;
+}
+
+.login-box h1 {
+    margin: 0 0 10px;
+
+    color: white;
+
+    font-size: 24px;
+}
+
+.login-box p {
+    margin-bottom: 25px;
+
+    color: #8e99aa;
+
+    font-size: 13px;
+}
+
+.login-box input {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 14px 16px;
+
+    margin-bottom: 12px;
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    border-radius: 12px;
+
+    background: #05070b;
+
+    color: white;
+
+    outline: none;
+}
+
+.login-box input:focus {
+    border-color: #274c9b;
+}
+
+#adminLoginBtn {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #274c9b;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+#adminLoginBtn:hover {
+    background: #315db5;
+}
+
+#loginMessage {
+    margin-top: 15px;
+
+    color: #ff8d8d;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
 </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
+    <div id="adminLogin" class="admin-login">
+
+    <div class="login-box">
+
+        <div class="login-logo">
+            NOVA
+        </div>
+
+        <h1>ورود به پنل مدیریت</h1>
+
+        <p>
+            برای ورود، اطلاعات مدیر را وارد کنید.
+        </p>
+
+        <input
+            type="email"
+            id="adminEmail"
+            placeholder="ایمیل"
+            autocomplete="email"
+        >
+
+        <input
+            type="password"
+            id="adminPassword"
+            placeholder="رمز عبور"
+            autocomplete="current-password"
+        >
+
+        <button id="adminLoginBtn">
+            ورود به پنل
+        </button>
+
+        <div id="loginMessage"></div>
+
+    </div>
+
+    </div>
+    <div id="adminLogin" class="admin-login">
+    <div class="login-box">
+        <div class="login-logo">NOVA</div>
+        <h1>ورود به پنل مدیریت</h1>
+        <p>برای ورود، اطلاعات مدیر را وارد کنید.</p>
+
+        <input
+            type="email"
+            id="adminEmail"
+            placeholder="ایمیل"
+            autocomplete="email"
+        >
+
+        <input
+            type="password"
+            id="adminPassword"
+            placeholder="رمز عبور"
+            autocomplete="current-password"
+        >
+
+        <button id="adminLoginBtn">
+            ورود به پنل
+        </button>
+
+        <div id="loginMessage"></div>
+    </div>
+    </div>
 
 <div class="admin-layout">
 
@@ -435,8 +623,8 @@ button{
         </div>
 
         <div class="logout">
-            <button>
-                خروج از پنل
+            <button id="adminLogout">
+    خروج از پنل
             </button>
         </div>
 
@@ -697,5 +885,103 @@ button{
 
 </div>
 
+    <script>
+const SUPABASE_URL =
+    "https://etupnpsxndnyaprsuqwf.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "YOUR_PUBLISHABLE_KEY";
+
+const adminSupabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+const loginBox = document.getElementById("adminLogin");
+const loginBtn = document.getElementById("adminLoginBtn");
+const loginMessage = document.getElementById("loginMessage");
+
+async function checkAdmin() {
+
+    const {
+        data: { user },
+        error
+    } = await adminSupabase.auth.getUser();
+
+    if (error || !user) {
+        loginBox.style.display = "flex";
+        return;
+    }
+
+    const { data: admin, error: adminError } =
+        await adminSupabase
+            .from("admin_users")
+            .select("user_id")
+            .eq("user_id", user.id)
+            .maybeSingle();
+
+    if (adminError || !admin) {
+        await adminSupabase.auth.signOut();
+
+        loginBox.style.display = "flex";
+        loginMessage.textContent =
+            "این حساب دسترسی مدیریت ندارد.";
+        return;
+    }
+
+    loginBox.style.display = "none";
+}
+
+loginBtn.addEventListener("click", async function () {
+
+    const email =
+        document.getElementById("adminEmail").value.trim();
+
+    const password =
+        document.getElementById("adminPassword").value;
+
+    if (!email || !password) {
+        loginMessage.textContent =
+            "ایمیل و رمز عبور را وارد کن.";
+        return;
+    }
+
+    loginBtn.disabled = true;
+    loginBtn.textContent = "در حال ورود...";
+
+    const { error } =
+        await adminSupabase.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
+
+    if (error) {
+
+        loginMessage.textContent =
+            "ورود ناموفق بود: " + error.message;
+
+        loginBtn.disabled = false;
+        loginBtn.textContent = "ورود به پنل";
+        return;
+    }
+
+    await checkAdmin();
+
+    loginBtn.disabled = false;
+    loginBtn.textContent = "ورود به پنل";
+});
+
+checkAdmin();
+        const adminLogout =
+    document.getElementById("adminLogout");
+
+adminLogout.addEventListener("click", async function () {
+
+    await adminSupabase.auth.signOut();
+
+    window.location.reload();
+
+});
+    </script>
 </body>
   </html>
